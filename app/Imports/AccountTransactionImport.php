@@ -94,6 +94,7 @@ $transaction = new AccountTransaction([
 
 if ($tipi_transaksionit === 'INTERNAL') {
     $incoming_account->balance += $vlera_transaksionit;
+    $outgoing_account->balance -=$vlera_transaksionit;
     $outgoing_account->save();
     $incoming_account->save();
 } elseif ($tipi_transaksionit === 'DALESE') {
@@ -134,11 +135,11 @@ return $transaction;
             return $vlera_transaksionit; // or handle this case as per your application logic
         }
 
-        if ($outgoing_account && isset(self::CONVERSION_RATES[$outgoing_account->Monedha][$currency])) {
-            $conversionRate = self::CONVERSION_RATES[$outgoing_account->Monedha][$currency];
+        if ($outgoing_account && isset(self::CONVERSION_RATES[$outgoing_account->currency][$currency])) {
+            $conversionRate = self::CONVERSION_RATES[$outgoing_account->currency][$currency];
             return $vlera_transaksionit * $conversionRate;
-        } elseif ($incoming_account && isset(self::CONVERSION_RATES[$incoming_account->Monedha][$currency])) {
-            $conversionRate = self::CONVERSION_RATES[$incoming_account->Monedha][$currency];
+        } elseif ($incoming_account && isset(self::CONVERSION_RATES[$incoming_account->currency][$currency])) {
+            $conversionRate = self::CONVERSION_RATES[$incoming_account->currency][$currency];
             return $vlera_transaksionit * $conversionRate;
         }
 

@@ -25,14 +25,6 @@ class Account extends Model
     {
         return $this->hasMany(AccountTransaction::class, 'account_id');
     }
-   /* public function outgoingTransactions()
-    {
-        return $this->hasMany(AccountTransaction::class, 'outgoing_iban', 'IBAN');
-    }
 
-    public function incomingTransactions()
-    {
-        return $this->hasMany(AccountTransaction::class, 'incoming_iban', 'IBAN');
-    }*/
 }
 
